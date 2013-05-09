@@ -1,7 +1,7 @@
 
 import unittest
 
-from lazy_seq import LazySeq, recur
+from lazy_seq import LazySeq, recur, iterate
 
 
 class TestCaseFib(unittest.TestCase):
@@ -47,6 +47,24 @@ class TestCaseFib(unittest.TestCase):
         self.assertEquals(f.nth(5), 5); self.assertEquals(self.ncalls, 6)
         f2 = f.drop(1)
         self.assertEquals(f2.nth(4), 5); self.assertEquals(self.ncalls, 6)
+
+    def test_iterate(self):
+        def constantly(x):
+            self.ncalls += 1
+            return x
+        i = iterate(constantly, 1)
+        self.assertEquals(i.nth(0), 1)
+        self.assertEquals(i.nth(100), 1)
+        self.assertEquals(self.ncalls, 101)
+        self.assertEquals(i.nth(50), 1)
+        self.assertEquals(self.ncalls, 101)
+
+    def test_iterate_2(self):
+        def add_5(x):
+            return x + 5
+        i = iterate(add_5, 0)
+        self.assertEquals(i.nth(0), 5)
+        self.assertEquals(i.nth(5), 30)
 
 
 if __name__ == "__main__":

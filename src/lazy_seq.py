@@ -71,3 +71,15 @@ class Binding(object):
 
 # Syntactic sugar; using recur is more readable in user code
 recur = Binding
+
+
+def iterate(fn, arg):
+    val = fn(arg)
+    return LazySeq(recur(iterate, fn, val)).cons(val)
+
+
+def constantly(x):
+    def _x(*args):
+        return x
+    return _x
+
