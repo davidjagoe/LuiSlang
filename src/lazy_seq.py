@@ -57,6 +57,9 @@ class LazySeq(object):
     def __str__(self):
         return str(self._list)
 
+    def realized(self):
+        return self._list
+
 
 class Binding(object):
 
@@ -83,3 +86,12 @@ def constantly(x):
         return x
     return _x
 
+
+def repeat(x):
+    return LazySeq(recur(repeat, x)).cons(x)
+
+
+def cycle(xs):
+    first = xs[0]
+    xs_ = xs[1:] + [first]
+    return LazySeq(recur(cycle, xs_)).cons(first)
