@@ -73,7 +73,7 @@ recur = Binding
 
 def iterate(fn, arg):
     val = fn(arg)
-    return LazySeq(recur(iterate, fn, val)).cons(val)
+    return LazySeq(recur(iterate, fn, val)).cons(arg)
 
 
 def constantly(x):
