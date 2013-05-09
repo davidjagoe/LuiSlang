@@ -34,8 +34,19 @@ class TestCaseFib(unittest.TestCase):
     def test_sub_seqs(self):
         fib_fn = self._make_test_fib_function()
         f = fib_fn()
-        f2 = f.drop(10)
-        print f2
+        self.assertEquals(self.ncalls, 1)
+        f2 = f.drop(1)
+        self.assertEquals(self.ncalls, 2)
+        self.assertEquals(f.nth(5), 5); self.assertEquals(self.ncalls, 6)
+        self.assertEquals(f2.nth(0), 1); self.assertEquals(self.ncalls, 6)
+        self.assertEquals(f2.nth(5), 8); self.assertEquals(self.ncalls, 11) # 5 more
+
+    def test_sub_seq_retains_completed_computations(self):
+        fib_fn = self._make_test_fib_function()
+        f = fib_fn()
+        self.assertEquals(f.nth(5), 5); self.assertEquals(self.ncalls, 6)
+        f2 = f.drop(1)
+        self.assertEquals(f2.nth(4), 5); self.assertEquals(self.ncalls, 6)
 
 
 if __name__ == "__main__":
