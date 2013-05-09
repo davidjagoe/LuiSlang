@@ -37,9 +37,7 @@ class LazySeq(object):
 
     def take(self, n):
         self = self.__realize(n)
-        seq = self.__copy()
-        seq._list = self._list[:n]
-        return seq
+        return self._list[:n]
 
     def drop(self, n):
         self = self.__realize(n)
@@ -56,9 +54,6 @@ class LazySeq(object):
 
     def __str__(self):
         return str(self._list)
-
-    def realized(self):
-        return self._list
 
 
 class Binding(object):

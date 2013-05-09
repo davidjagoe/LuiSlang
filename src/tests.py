@@ -68,12 +68,12 @@ class TestCaseFib(unittest.TestCase):
 
     def test_repeat(self):
         x = repeat([1, 2, 3])
-        self.assertEquals(x.take(3).realized(), [[1,2,3],[1,2,3],[1,2,3]])
+        self.assertEquals(x.take(3), [[1,2,3],[1,2,3],[1,2,3]])
 
     def test_cycle(self):
         x = cycle([1, 2, 3])
         expected = [1,2,3,1,2,3,1,2,3] # ...
-        self.assertEquals(x.take(9).realized(), expected)
+        self.assertEquals(x.take(9), expected)
 
 
 if __name__ == "__main__":
